@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # Development environment
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel-app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    environment:
+      - APP_NAME=Laravel
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - APP_URL=http://localhost
+      - LOG_CHANNEL=stack
+      - DB_CONNECTION=sqlite
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html
+      - ./storage:/var/www/html/storage
+      - ./bootstrap/cache:/var/www/html/bootstrap/cache
+    networks:
+      - laravel
+
+  # Production-like environment for local testing
+  app-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: laravel-app-prod
+    restart: unless-stopped
+    working_dir: /var/www/html
+    environment:
+      - APP_NAME=Laravel
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - APP_URL=http://localhost
+      - LOG_CHANNEL=stack
+      - DB_CONNECTION=sqlite
+      - FETCH_ENV_FROM_AWS=false
+    ports:
+      - "8080:80"
+    volumes:
+      - ./storage:/var/www/html/storage
+      - ./bootstrap/cache:/var/www/html/bootstrap/cache
+    networks:
+      - laravel
+
+networks:
+  laravel:
+    driver: bridge

@@ -1,0 +1,34 @@
+.git
+.gitignore
+.env
+.env.example
+.editorconfig
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+node_modules/
+npm-debug.log
+yarn-error.log
+
+.DS_Store
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+storage/logs/*
+bootstrap/cache/*
+!bootstrap/cache/.gitkeep
+!storage/logs/.gitkeep
+
+.phpunit.result.cache
+coverage/
+
+# Node/Vite build files
+public/build/
+resources/*/dist/
+
+# Composer
+composer.lock
