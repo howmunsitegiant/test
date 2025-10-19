@@ -11,6 +11,7 @@ RUN apk add --no-cache \
     libpng-dev \
     libzip-dev \
     freetype-dev \
+    sqlite-dev \
     nodejs \
     npm
 
