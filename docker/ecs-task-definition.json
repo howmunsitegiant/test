@@ -52,5 +52,5 @@
     }
   ],
   "executionRoleArn": "arn:aws:iam::794036769283:role/ecsTaskExecutionRole",
-  "taskRoleArn": "arn:aws:iam::794036769283:role/howmun-test-task-role"
+  "taskRoleArn": "arn:aws:iam::794036769283:role/howmun-test-container-role"
 }
