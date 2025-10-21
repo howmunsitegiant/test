@@ -10,8 +10,8 @@ env:
   AWS_REGION: ap-southeast-1
   ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-southeast-1.amazonaws.com
   ECR_REPOSITORY: howmun-test
-  ECS_SERVICE: howmun-test
-  ECS_CLUSTER: default
+  ECS_SERVICE: howmun-test-service-rzofj9ge
+  ECS_CLUSTER: howmun-test-laravel
 
 jobs:
   build-and-deploy:
