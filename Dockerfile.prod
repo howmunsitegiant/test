@@ -50,15 +50,15 @@ COPY . .
 # Generate application key if needed
 RUN if [ ! -f .env ]; then cp .env.example .env || true; fi
 
-# Run composer scripts
-RUN composer run-script post-install-cmd
+# Run composer scripts (only if defined)
+# RUN composer run-script post-install-cmd --no-interaction || true
 
 # Build frontend assets if vite.config.js exists
-RUN if [ -f vite.config.js ]; then \
-    npm ci --legacy-peer-deps && \
-    npm run build && \
-    rm -rf node_modules; \
-    fi
+# RUN if [ -f vite.config.js ]; then \
+#     npm ci --legacy-peer-deps && \
+#     npm run build && \
+#     rm -rf node_modules; \
+#     fi
 
 # Optimize Laravel
 RUN php artisan config:cache && \
