@@ -7,25 +7,25 @@ echo "Starting Laravel Production Container Initialization..."
 cd /var/www/html
 
 # Fetch .env from AWS Parameter Store if running on ECS
-if [ "$FETCH_ENV_FROM_AWS" = "true" ]; then
-    echo "Fetching .env from AWS Parameter Store..."
+# if [ "$FETCH_ENV_FROM_AWS" = "true" ]; then
+#     echo "Fetching .env from AWS Parameter Store..."
     
-    PARAM_NAME="${AWS_PARAM_NAME:-/howmun-test}"
+#     PARAM_NAME="${AWS_PARAM_NAME:-/howmun-test}"
     
-    # Get parameter value from AWS Systems Manager Parameter Store
-    aws ssm get-parameter \
-        --name "$PARAM_NAME" \
-        --query 'Parameter.Value' \
-        --output text \
-        --region "$AWS_REGION" > .env
+#     # Get parameter value from AWS Systems Manager Parameter Store
+#     aws ssm get-parameter \
+#         --name "$PARAM_NAME" \
+#         --query 'Parameter.Value' \
+#         --output text \
+#         --region "$AWS_REGION" > .env
     
-    if [ $? -eq 0 ]; then
-        echo ".env successfully fetched from Parameter Store"
-    else
-        echo "Failed to fetch .env from Parameter Store"
-        exit 1
-    fi
-fi
+#     if [ $? -eq 0 ]; then
+#         echo ".env successfully fetched from Parameter Store"
+#     else
+#         echo "Failed to fetch .env from Parameter Store"
+#         exit 1
+#     fi
+# fi
 
 # Verify .env exists
 if [ ! -f ".env" ]; then
