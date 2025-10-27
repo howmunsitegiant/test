@@ -1,5 +1,5 @@
 # Stage 1: Builder
-FROM php:8.3-fpm-alpine AS builder
+FROM --platform=linux/arm64 php:8.3-fpm-alpine AS builder
 
 # Install build dependencies
 RUN apk add --no-cache \
@@ -67,7 +67,7 @@ RUN php artisan config:cache && \
     php artisan view:cache
 
 # Stage 2: Runtime
-FROM php:8.3-fpm-alpine
+FROM --platform=linux/arm64 php:8.3-fpm-alpine
 
 # Install runtime dependencies only
 RUN apk add --no-cache \

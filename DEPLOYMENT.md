@@ -6,6 +6,7 @@ This guide explains the production Docker setup for deploying this Laravel appli
 
 ### Production Dockerfile (Dockerfile.prod)
 - **Multi-stage build** for minimal image size
+- **ARM64 architecture** for AWS Graviton2/Graviton3 instances
 - **Stage 1 (Builder)**: Builds dependencies, compiles assets, optimizes Laravel
 - **Stage 2 (Runtime)**: Lightweight Alpine-based image with only runtime dependencies
 - Includes PHP 8.3 FPM, Nginx, and Supervisord
@@ -31,7 +32,8 @@ Automatically:
 - Optimizes application before startup
 
 ### ECS Task Definition (docker/ecs-task-definition.json)
-- Fargate-compatible (1024 CPU, 2048 memory)
+- ARM64 runtime platform for AWS Graviton instances
+- EC2-compatible (256 CPU, 512 memory) 
 - Environment variables for AWS parameter fetching
 - CloudWatch logging integration
 - Health checks configured
@@ -41,6 +43,17 @@ Required permissions for ECS tasks to:
 - Read from SSM Parameter Store
 - Decrypt KMS keys (if parameters are encrypted)
 - Write logs to CloudWatch
+
+## Architecture Notes
+
+This deployment is configured for **ARM64 architecture** to take advantage of AWS Graviton processors, which provide:
+- Up to 40% better price-performance compared to x86-based instances
+- Lower power consumption
+- Better performance for many workloads
+
+**ECS Instance Requirements:**
+- Use ARM64-based EC2 instances (m6g, c6g, r6g, t4g families)
+- Ensure your ECS cluster uses Graviton-based instances
 
 ## Setup Instructions
 
